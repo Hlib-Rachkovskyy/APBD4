@@ -1,0 +1,13 @@
+.idea/
+bin/
+obj/
+node_modules/
+packages/
+bower_components/
+.vscode/
+*.class
+*.pyc
+*.class
+*.kotlin_module
+.DS_Store
+Thumbs.db

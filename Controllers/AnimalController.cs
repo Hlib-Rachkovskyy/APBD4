@@ -5,7 +5,7 @@ namespace APBD4.Controllers;
 
 [Route("api/animals")]
 [ApiController]
-public class AnimalController : ControllerBase
+public class AnimalsController : ControllerBase
 {
 
     private static readonly List<Animal> Animals = new()

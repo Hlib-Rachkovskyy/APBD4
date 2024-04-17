@@ -6,9 +6,9 @@ namespace APBD4.Controllers;
 
 [Route("api/visits/")]
 [ApiController]
-public class VisitController : ControllerBase
+public class VisitsController : ControllerBase
 {
-    private List<List<Visit>> _visits = new()
+    private static List<List<Visit>> _visits = new()
     {
         new List<Visit>{new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}, new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}},
         new List<Visit>{new (){VisitTime = DateTime.Today, Animal = new(){ Id = 3, Name = "SomeAnimal", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}, new (){VisitTime = DateTime.Today, Animal = new(){ Id = 3, Name = "SomeAnimal", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}}
@@ -26,7 +26,7 @@ public class VisitController : ControllerBase
         return Ok(list);
     }
     
-    [HttpPost("{id:int}")]
+    [HttpPut("{id:int}")]
     public IActionResult AddAnimalVisit(Visit visit, int id)
     {
         var visitsForAnimal = _visits.FirstOrDefault(a => a.Any(e => e.Animal.Id == id));
@@ -34,9 +34,10 @@ public class VisitController : ControllerBase
         if (visitsForAnimal == null)
         {
             return NotFound($"No visits found for animal with id: {id}");
-        } 
-        
-        _visits.FirstOrDefault(a => a.Any(e => e.Animal.Id == id)).Add(visit);
-        return Ok(visitsForAnimal);
+        }
+
+        visitsForAnimal.Add(visit);
+
+        return NoContent();
     }
 }

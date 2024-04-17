@@ -6,15 +6,16 @@ namespace APBD4.Controllers;
 
 [Route("api/visits/")]
 [ApiController]
-public class gVisitController : ControllerBase
+public class VisitController : ControllerBase
 {
     private List<List<Visit>> _visits = new()
     {
-        new List<Visit>{new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}, new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}}
+        new List<Visit>{new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}, new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}},
+        new List<Visit>{new (){VisitTime = DateTime.Today, Animal = new(){ Id = 3, Name = "SomeAnimal", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}, new (){VisitTime = DateTime.Today, Animal = new(){ Id = 3, Name = "SomeAnimal", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}}
     };
         
     [HttpGet("{id:int}")]
-    public IActionResult getAnimalVisitLists(int id)
+    public IActionResult GetAnimalVisitLists(int id)
     {
 
         var list = _visits.FirstOrDefault(a => a.Any(e => e.Animal.Id == id));
@@ -26,7 +27,7 @@ public class gVisitController : ControllerBase
     }
     
     [HttpPost("{id:int}")]
-    public IActionResult addAnimalVisit(Visit visit, int id)
+    public IActionResult AddAnimalVisit(Visit visit, int id)
     {
         var visitsForAnimal = _visits.FirstOrDefault(a => a.Any(e => e.Animal.Id == id));
 

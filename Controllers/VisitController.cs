@@ -10,7 +10,7 @@ public class gVisitController : ControllerBase
 {
     private List<List<Visit>> _visits = new()
     {
-        new List<Visit>{new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}}
+        new List<Visit>{new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}, new (){VisitTime = DateTime.Today, Animal = new(){ Id = 2, Name = "Mickey", Category = "Mouse", Mass = 0.8, CoatColor = "Black"}, Description = "Spoko", Price = 1000}}
     };
         
     [HttpGet("{id:int}")]
@@ -26,15 +26,16 @@ public class gVisitController : ControllerBase
     }
     
     [HttpPost("{id:int}")]
-    public IActionResult addAnimalVisit(Visit visit, int id) // nie dziala
+    public IActionResult addAnimalVisit(Visit visit, int id)
     {
-        var list = _visits.FirstOrDefault(a => a.Any(e => e.Animal.Id == id));
-        ref List<Visit> refe = ref list; 
-        if (refe == null)
+        var visitsForAnimal = _visits.FirstOrDefault(a => a.Any(e => e.Animal.Id == id));
+
+        if (visitsForAnimal == null)
         {
-            return NotFound($"A visit with animal id: {id} was not found" );
-        }
-        refe.Add(visit); 
-        return Ok(visit);
+            return NotFound($"No visits found for animal with id: {id}");
+        } 
+        
+        _visits.FirstOrDefault(a => a.Any(e => e.Animal.Id == id)).Add(visit);
+        return Ok(visitsForAnimal);
     }
 }

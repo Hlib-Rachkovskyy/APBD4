@@ -6,7 +6,7 @@ namespace APBD4.Controllers;
 
 [Route("api/visits/")]
 [ApiController]
-public class VisitController : ControllerBase
+public class gVisitController : ControllerBase
 {
     private List<List<Visit>> _visits = new()
     {

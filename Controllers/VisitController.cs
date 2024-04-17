@@ -29,11 +29,12 @@ public class VisitController : ControllerBase
     public IActionResult addAnimalVisit(Visit visit, int id) // nie dziala
     {
         var list = _visits.FirstOrDefault(a => a.Any(e => e.Animal.Id == id));
-        if (list == null)
+        ref List<Visit> refe = ref list; 
+        if (refe == null)
         {
             return NotFound($"A visit with animal id: {id} was not found" );
         }
-        list.Add(visit); 
+        refe.Add(visit); 
         return Ok(visit);
     }
 }
